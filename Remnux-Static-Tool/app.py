@@ -4,10 +4,9 @@ import time
 import re
 from flask import Flask, render_template, request, jsonify
 
-# --- הגדרות מעבדת הסייבר של אביב ---
-REMNUX_IP = "192.168.153.144"
-VM_USER = "remnux"
-VM_PASS = "3565"
+REMNUX_IP = "YOUR_REMNUX_IP"  
+VM_USER = "remnux"            
+VM_PASS = "YOUR_PASSWORD"   
 UPLOAD_FOLDER = 'uploads'
 
 app = Flask(__name__)
