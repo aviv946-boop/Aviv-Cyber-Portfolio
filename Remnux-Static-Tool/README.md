@@ -6,22 +6,6 @@ Built with the philosophy of **Objective Representation**, StoicSentinel is engi
 
 ---
 
-## 🚀 The Elite Power-Tabs
-
-### ⚡ Deep Auto-Ghidra Scan
-
-The system's "Brain." Instead of waiting minutes for the Ghidra GUI auto-analysis, this tab runs a unified pipeline of **Recursive File Carving** and **Symbol Extraction**. It scans for dangerous Windows APIs (e.g., `VirtualAllocEx`, `CreateRemoteThread`) across both the original binary and every single carved artifact simultaneously.
-
-### 🔐 XOR Forensic Pipeline
-
-A multi-stage engine designed for modern loaders that conceal C2 configurations behind custom XOR/ROT loops. It utilizes **Balbuzard IOC Scanning** to detect hidden MZ/PE signatures and employs **Statistical Frequency Analysis** (`brxor` & `bbcrack`) to automatically discover encryption keys.
-
-### 🐚 Shellcode Emulation (Entry-Focused)
-
-A surgical tool for analyzing packed samples. It uses `pescan` and `xorsearch -p` to map candidate shellcode regions before executing **scdbg** in "Tolerant Mode" (`/i`). This surfaces runtime-resolved APIs that are invisible to standard static string scanners.
-
----
-
 ## 🛠️ Complete Feature Matrix
 
 | Tab | Forensic Engine / Logic | Intent & Output |
