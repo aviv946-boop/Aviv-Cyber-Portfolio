@@ -21,7 +21,6 @@ Built with the philosophy of **Objective Representation**, StoicSentinel is engi
 | **Network Recon** | Multi-Source Grep | Aggressive search across ASCII, Unicode LE, and FLOSS outputs for IPs, domains, and malware-specific TLDs. |
 | **Ghidra Symbols** | `pelook` + `wrestool` | A robust summary of linked libraries, dynamic symbol tables, and dangerous Windows API hits. |
 | **Entry-Point Assembly** | `objdump -d` | Direct disassembly starting exactly at the program's Entry Point (EP) for rapid structural review. |
-| **Deep Auto-Ghidra** | Unified Pipeline | **The Master Scan:** Automated carving followed by cross-referenced symbol and API analysis. |
 | **File Carving** | `binwalk` + `foremost` | Recovers embedded binaries, scripts, or images hidden within the primary file structure. |
 | **Documents & Office** | `pdfid` + `oledump.py` | Specialized analysis for malicious PDFs and Office documents (Macros/OLE objects). |
 | **Resources & YARA** | `yara` + `loki` | Scans against global signature databases to identify specific malware families and known IOCs. |
