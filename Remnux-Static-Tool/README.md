@@ -1,65 +1,57 @@
-# 🛡️ Remnux Static Tool
+# 🛡️ StoicSentinel: Advanced Malware Static-Analysis Workbench
 
-**Advanced Web-Based Static Analysis Dashboard**
+**StoicSentinel** is a high-performance, single-file production dashboard designed for Malware Researchers and **DFIR** professionals. It bridges the gap between your analysis host (e.g., FLARE-VM) and a specialized **REMnux** backend, automating the extraction of "gold-standard" forensic metadata in seconds.
 
-Remnux Static Tool is a forensic-grade malware analysis platform designed to automate and streamline static data extraction. By bridging a Python Flask backend with the advanced forensic toolset of **REMnux**, it provides deep, actionable insights into PE files, specifically engineered to bypass complex obfuscation and packing.
+Built with the philosophy of **Objective Representation**, StoicSentinel is engineered to strip away the "armor" of modern malware—including advanced protectors like **Themida**—to reveal the binary's true functional essence.
 
-## 📑 Feature Breakdown by Forensic Importance
+---
 
-### 1. Capabilities - Capa (Behavioral Mapping) 🔍
+## 🚀 The Elite Power-Tabs
 
-Maps malware functionality to the MITRE ATT&CK® framework without the need for execution.
+### ⚡ Deep Auto-Ghidra Scan
 
-* **Tactical Analysis**: Identifies capabilities such as "Process Injection," "Credential Stealing," or "Anti-VM" techniques.
-* **Variable Verbosity**: User-selectable modes between high-level summaries (`-qq`) and deep-dive technical breakdowns (`-vv`).
+The system's "Brain." Instead of waiting minutes for the Ghidra GUI auto-analysis, this tab runs a unified pipeline of **Recursive File Carving** and **Symbol Extraction**. It scans for dangerous Windows APIs (e.g., `VirtualAllocEx`, `CreateRemoteThread`) across both the original binary and every single carved artifact simultaneously.
 
-### 2. FLOSS - Strings Recovery Pipeline (Deep Intelligence) 🚨
+### 🔐 XOR Forensic Pipeline
 
-A specialized multi-stage engine built for active de-obfuscation and IOC harvesting.
+A multi-stage engine designed for modern loaders that conceal C2 configurations behind custom XOR/ROT loops. It utilizes **Balbuzard IOC Scanning** to detect hidden MZ/PE signatures and employs **Statistical Frequency Analysis** (`brxor` & `bbcrack`) to automatically discover encryption keys.
 
-* **Recovery Pipeline**: Orchestrates a combined attack using `strings`, `FLOSS` (Stack Strings), and `XORSearch` to bypass static encoding.
-* **IOC Extraction**: Automated harvesting of network indicators, including IPs, domains, and suspicious URLs.
-* **Forensic Filtering**: Aggressive noise reduction to highlight potential C2 commands and cryptographic constants.
+### 🐚 Shellcode Emulation (Entry-Focused)
 
-### 3. Overview (File Identity & Reputation) 🛡️
+A surgical tool for analyzing packed samples. It uses `pescan` and `xorsearch -p` to map candidate shellcode regions before executing **scdbg** in "Tolerant Mode" (`/i`). This surfaces runtime-resolved APIs that are invisible to standard static string scanners.
 
-The primary entry point for any investigation, providing immediate situational awareness.
+---
 
-* **Technical Metadata**: Instant identification of architecture (x86/x64), subsystem, and compiler/linker details.
-* **Heuristic Analysis**: Automated detection of protectors and packers to determine if the sample is packed.
-* **Reputation Check**: Direct integration for pivoting to VirusTotal for global threat intelligence.
-  
-### 4. Packer & Sections (Entropy & Structural Integrity) 📦
+## 🛠️ Complete Feature Matrix
 
-Analyzes file sections to pinpoint anomalies and hidden payloads.
+| Tab | Forensic Engine / Logic | Intent & Output |
+| --- | --- | --- |
+| **Overview** | `diec` Heuristics + SHA256 | Instant triage: identifies compilers, packers, and provides a direct VirusTotal pivot. Cleaned for High Signal-to-Noise Ratio (SNR). |
+| **Capabilities** | `capa` engine | Maps binary functionality directly to the **MITRE ATT&CK®** framework to identify the malware's goals. |
+| **Advanced PE** | `pedump` + `peframe` | Deep-dive into PE headers, identifying hidden imports and suspicious file characteristics. |
+| **Raw Strings** | `strings` (Optimized) | Rapid extraction of ASCII strings with a custom anomaly filter for high-interest patterns. |
+| **FLOSS** | Mandiant `FLOSS` | Deobfuscates "stack strings" and strings decoded at runtime that standard extraction misses. |
+| **Packer & Sections** | `objdump` + `densityscout` | Visual mapping of file sections and **Shannon Entropy** analysis to locate hidden encrypted payloads. |
+| **Shellcode Emulation** | `scdbg` + `pescan` | Emulates execution to hook resolved APIs and reveal shellcode behavior without a debugger. |
+| **XOR Forensic** | `balbuzard` + `bbcrack` | Breaks bitwise obfuscation and reveals hidden configuration blocks/C2 data. |
+| **Network Recon** | Multi-Source Grep | Aggressive search across ASCII, Unicode LE, and FLOSS outputs for IPs, domains, and malware-specific TLDs. |
+| **Ghidra Symbols** | `pelook` + `wrestool` | A robust summary of linked libraries, dynamic symbol tables, and dangerous Windows API hits. |
+| **Entry-Point Assembly** | `objdump -d` | Direct disassembly starting exactly at the program's Entry Point (EP) for rapid structural review. |
+| **Deep Auto-Ghidra** | Unified Pipeline | **The Master Scan:** Automated carving followed by cross-referenced symbol and API analysis. |
+| **File Carving** | `binwalk` + `foremost` | Recovers embedded binaries, scripts, or images hidden within the primary file structure. |
+| **Documents & Office** | `pdfid` + `oledump.py` | Specialized analysis for malicious PDFs and Office documents (Macros/OLE objects). |
+| **Resources & YARA** | `yara` + `loki` | Scans against global signature databases to identify specific malware families and known IOCs. |
 
-* **Visual Entropy Mapping**: Detailed visualization of data density to locate encrypted or compressed regions.
-* **Structural Analysis**: Detects non-standard section names or zeroed-out headers indicative of custom packers.
+---
 
-### 5. Resources & YARA (Signature Matching) 🛡️
+## 🏗️ Architecture
 
-Leverages industry-standard signature sets for rapid family identification.
+* **Frontend:** Modern, dark-themed responsive UI with dynamic highlighting for IOCs.
+* **Backend:** Flask-powered asynchronous Python controller.
+* **Transport:** Encrypted SSH/SFTP via `Paramiko` for remote execution on REMnux.
 
-* **Signature Scans**: Real-time matching against `YARA` and `LOKI` rulebases to identify known malware families.
-* **Artifact Inspection**: Analyzes embedded resources and the MZ header for forensic consistency.
+---
 
-### 6. Advanced PE & Raw Strings 🛠️
+**Developed for the Cyber Security Community. Stay Stoic. Analyze Deeper.**
 
-Specialized tools for the experienced forensic investigator.
-
-* **Advanced PE Analysis**: Deep-dive into the Import Address Table (IAT) using `Manalyze` to find critical API calls.
-* **Raw Strings**: Full, unfiltered access to all ASCII/Unicode strings for manual discovery and pattern hunting.
-
-## 🛠️ Prerequisites
-
-* **REMnux VM**: Running with an active SSH server (`sudo systemctl enable --now ssh`).
-* **System Updates**: Ensure the toolset is current via `remnux-update`.
-* **Python 3.10+**: Installed on the host machine.
-
-## ⚙️ Installation & Usage
-
-1. **Clone**: the repository to your host machine.
-2. **Install**: dependencies: `pip install -r requirements.txt`.
-3. **Configure**: Update the REMNUX_IP, VM_USER, and VM_PASS variables in app.py with your VM's credentials.
-4. **Launch**: Run the dashboard using `python app.py`.
-5. **Access**: Open your browser at `http://127.0.0.1:5000`.
+---
