@@ -1,2 +1,29 @@
+⚙️ Configuration & Connection Setup
+To bridge your analysis host with the REMnux backend, configure the following parameters within the app.py file (or via environment variables):
+
+REMNUX_IP: The target IP address of your REMnux instance.
+
+VM_USER: Default is usually remnux.
+
+VM_PASS: Your REMnux login password.
+
+Port: The application defaults to port 8080 for the web interface.
+
+🛡️ Backend Requirements (REMnux Side)
+SSH Service: Ensure the OpenSSH server is running (sudo systemctl start ssh).
+
+Port 22: Ensure port 22 is open and reachable from your host machine.
+
+SFTP Support: SFTP must be enabled (enabled by default in most SSH installations) for file uploads.
+
+📥 Prerequisites (Local Host)
+Install the required Python libraries on your host machine (e.g., FLARE-VM):
+
+Bash
+pip install -r requirements.txt
+requirements.txt content:
+
+Plaintext
 Flask==3.0.0
 paramiko==3.4.0
+python-dotenv==1.0.1
