@@ -8,22 +8,21 @@ Built with the philosophy of **Objective Representation**, StoicSentinel is engi
 
 ## 🛠️ Complete Feature Matrix
 
-| Tab | Forensic Engine / Logic | Intent & Output |
-| --- | --- | --- |
-| **Overview** | `diec` Heuristics + SHA256 | Instant triage: identifies compilers, packers, and provides a direct VirusTotal pivot. Cleaned for High Signal-to-Noise Ratio (SNR). |
-| **Capabilities** | `capa` engine | Maps binary functionality directly to the **MITRE ATT&CK®** framework to identify the malware's goals. |
-| **Advanced PE** | `pedump` + `peframe` | Deep-dive into PE headers, identifying hidden imports and suspicious file characteristics. |
-| **Raw Strings** | `strings` (Optimized) | Rapid extraction of ASCII strings with a custom anomaly filter for high-interest patterns. |
-| **FLOSS** | Mandiant `FLOSS` | Deobfuscates "stack strings" and strings decoded at runtime that standard extraction misses. |
-| **Packer & Sections** | `objdump` + `densityscout` | Visual mapping of file sections and **Shannon Entropy** analysis to locate hidden encrypted payloads. |
-| **Shellcode Emulation** | `scdbg` + `pescan` | Emulates execution to hook resolved APIs and reveal shellcode behavior without a debugger. |
-| **XOR Forensic** | `balbuzard` + `bbcrack` | Breaks bitwise obfuscation and reveals hidden configuration blocks/C2 data. |
-| **Network Recon** | Multi-Source Grep | Aggressive search across ASCII, Unicode LE, and FLOSS outputs for IPs, domains, and malware-specific TLDs. |
-| **Ghidra Symbols** | `pelook` + `wrestool` | A robust summary of linked libraries, dynamic symbol tables, and dangerous Windows API hits. |
-| **Entry-Point Assembly** | `objdump -d` | Direct disassembly starting exactly at the program's Entry Point (EP) for rapid structural review. |
-| **File Carving** | `binwalk` + `foremost` | Recovers embedded binaries, scripts, or images hidden within the primary file structure. |
-| **Documents & Office** | `pdfid` + `oledump.py` | Specialized analysis for malicious PDFs and Office documents (Macros/OLE objects). |
-| **Resources & YARA** | `yara` + `loki` | Scans against global signature databases to identify specific malware families and known IOCs. |
+Tab,Forensic Engines & Tools,Intent & Analytical Output
+Overview,"diec, sha256sum, cut","Instant Triage: Identifies file type, compiler, and packer signatures. Automatically generates a pivot link to VirusTotal based on the file hash."
+Capabilities,capa (Standard & Deep),"Behavior Mapping: Uses the Capa engine to map binary functionality to the MITRE ATT&CK® framework. Identifies high-level goals like ""Steal Credentials"" or ""Inject Code."""
+Advanced PE,"manalyze, pedump, peframe","Deep Structural Recon: Identifies hidden imports, verifies digital signatures, and flags suspicious PE characteristics (e.g., unusual section names)."
+Raw Strings,strings + Anomaly Grep,"Heuristic Scanning: Extracts ASCII strings and filters them against a massive custom dictionary of dangerous keywords (APIs, C2 patterns, registry keys)."
+FLOSS,"Mandiant FLOSS, xorsearch","De-obfuscation: Decodes ""stack strings"" and strings obfuscated at runtime. Bypasses standard anti-forensic techniques that hide configuration data."
+Packer & Sections,"objdump, readelf, densityscout","Entropy Analysis: Maps file sections and calculates Shannon Entropy. Locates hidden, encrypted payloads by identifying areas of high randomness (>7.0)."
+Shellcode Emulation,"scdbg, pescan, xorsearch -p","API Hooking: Emulates code execution in a safe environment. Reveals which Windows APIs the code tries to resolve (e.g., URLDownloadToFile, WinExec) without using a debugger."
+XOR Forensic,"balbuzard, bbcrack, xorsearch, brxor",Cipher Breaking: Brute-forces bitwise obfuscation. Statistically decodes XOR/ROT encrypted blocks to reveal hidden C2 URLs or shellcode.
+Network Recon,Aggressive Multi-Source Grep,"C2 Identification: Aggregates data from ASCII, Unicode LE, FLOSS, and Balbuzard. Targets IPs, public domains, and malware-specific TLDs (e.g., .ru, .onion)."
+Ghidra Symbols,"objdump -p, strings, foremost",Library Analysis: Summarizes linked DLLs and scans for dangerous system APIs. Includes a list of carved resources extracted from the binary.
+Entry-Point Assembly,"objdump -f, objdump -d",Low-Level Review: Computes the exact Entry Point (EP) of the program and provides a disassembly of the first 200 instructions for rapid code flow review.
+File Carving,"binwalk, peframe","Artifact Recovery: Scans for embedded files (droppers, icons, scripts) ""sewn"" into the primary binary structure. Identifies the offset and size of hidden data."
+Documents & Office,"oledump, olevba, mraptor, oleid, olemeta, plugin_http_hosts","Office Weaponization Lab: Maps OLE streams, de-obfuscates VBA macros, extracts metadata (attribution), and automatically pulls network IOCs from document streams."
+Resources & YARA,"yara, loki, ssdeep, pedump -r",Signature Scanning: Matches the file against thousands of global YARA rules to identify specific malware families and compares fuzzy hashes for similarity.
 
 ---
 
